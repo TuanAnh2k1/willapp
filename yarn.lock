@@ -5500,7 +5500,14 @@ mobx@^5.15.4:
   resolved "https://registry.npmjs.org/mobx/-/mobx-5.15.7.tgz#b9a5f2b6251f5d96980d13c78e9b5d8d4ce22665"
   integrity sha512-wyM3FghTkhmC+hQjyPGGFdpehrcX1KOXsDuERhfK2YbJemkUhEB+6wzEN639T21onxlfYBmriA1PFnvxTUhcKw==
 
-moment@^2.29.4:
+moment-lunar@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.npmjs.org/moment-lunar/-/moment-lunar-0.0.4.tgz#7718594d8b19aea612f42c2b9149d7b1242f6f2e"
+  integrity sha512-8+20OOe4+4qpW6E74TqNYLW1Ri8C1BvJjrwsv5tm49SfQzh+b6YcPPn25xXb3JHIhYVAEwc5hvu0B7X8VdQukw==
+  dependencies:
+    moment "^2.17.1"
+
+moment@^2.17.1, moment@^2.29.4:
   version "2.30.1"
   resolved "https://registry.npmjs.org/moment/-/moment-2.30.1.tgz#f8c91c07b7a786e30c59926df530b4eac96974ae"
   integrity sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==

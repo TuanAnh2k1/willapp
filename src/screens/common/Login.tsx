@@ -18,13 +18,11 @@ const Login = () => {
   const [account, setAccount] = useState({
     username: useAppSelector(state => state.app.Username),
     password: useAppSelector(state => state.app.Password),
+    birthday: useAppSelector(state => state.app.Birthday),
   });
   const [show, setShow] = useState<boolean>(false);
-  const [NextActionDTG, setNextActionDTG] = useState<Date>();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const remember = useAppSelector(state => state.app.Remember);
-  //const [id, setID] = useState<number>();
 
   const onAccountChange = (state: string, value: any) => {
     setAccount((previousState) => {
@@ -35,38 +33,19 @@ const Login = () => {
   const login = async () => {
     if (account.username === "") {
       dispatch(setAlert("Bạn chưa nhập tên đăng nhập!"));
-
       return;
     }
-    if (account.password === "") {
-      dispatch(setAlert("Bạn chưa nhập mật khẩu!"));
 
+    if (!account.birthday) {
+      dispatch(setAlert("Bạn chưa chọn ngày sinh!"));
       return;
     }
 
     GlobalService.showLoading();
     try {
-      let request = new AuthenticationDTO();
-      request.UserName = account.username;
-      request.Password = account.password;
-
-      await HttpUtils.post<AuthenticationDTO>(
-        ApiUrl.AuthenticationLogin,
-        "Login",
-        JSON.stringify(request),
-        false,
-      ).then((response) => {
-        dispatch(setUserInformation(response));
-
-        if (remember) {
-          dispatch(setLoginInformation(account));
-        } else {
-          dispatch(removeLoginInformation());
-        }
-      }).then(() => {
-        navigation.navigate(HOME)
-        GlobalService.hideLoading();
-      });
+      dispatch(setLoginInformation(account));
+      navigation.navigate(HOME)
+      GlobalService.hideLoading();
     } catch (error) {
       GlobalService.hideLoading();
     }
@@ -87,13 +66,13 @@ const Login = () => {
             onPressItemDropdown={(id) => setID(id)}
           />*/}
             <BaseTextInput
-              placeholder={"Tên đăng nhập"}
+              placeholder={"Tên của bạn"}
               value={account.username}
               onChangeText={(value) => onAccountChange("username", value)}
               containerStyle={styles.inputStyle}
               leftComponent={<IconUsername />}
             />
-            <BaseTextInput
+            {/* <BaseTextInput
               placeholder={"Mật khẩu"}
               value={account.password}
               onChangeText={(value) => onAccountChange("password", value)}
@@ -108,25 +87,25 @@ const Login = () => {
                   <IconShowPassword />
                 </TouchableOpacity>
               }
-            />
+            /> */}
             <View style={{
               marginTop: 20,
               borderRadius: 8,
             }}>
               <DateTimePicker
-                onRemove={() => { setNextActionDTG(undefined) }}
-                SelectedDate={NextActionDTG}
+                onRemove={() => { onAccountChange("birthday", undefined) }}
+                SelectedDate={account.birthday}
                 OnselectedDateChanged={(val) => {
-                  setNextActionDTG(val);
+                  onAccountChange("birthday", val)
                 }}
               />
             </View>
-            <BaseSwitch
+            {/* <BaseSwitch
               value={remember}
               onPressSwitch={() => dispatch(setRemember(!remember))}
               containerStyle={styles.switchStyle}
               label={"Lưu thông tin đăng nhập"}
-            />
+            /> */}
             <BaseButton
               containerStyle={styles.buttonStyle}
               labelStyle={styles.labelStyle}

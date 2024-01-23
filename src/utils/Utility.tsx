@@ -4,6 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
 import moment from "moment";
+import "moment-lunar";
 import { adm_Feature } from "@entities";
 
 class Utility {
@@ -46,8 +47,62 @@ class Utility {
   }
 
   static formatDateData = (date: Date) => {
-    return moment(date).format("YYYY-MM-DD");
+    return moment(date).format("DD-MM-YYYY");
   }
+
+  static formatDateLunerData = (date: Date) => {
+    return moment(date).lunar().format("DD-MM-YYYY");
+  }
+
+  static formatDateZodiac = (date: Date) => {
+    const gregorianDate = new Date(date);
+
+    const zodiacSigns = [
+      'Bạch Dương', 'Kim Ngưu', 'Song Tử', 'Cự Giải', 'Sư Tử', 'Xử Nữ',
+      'Thiên Bình', 'Bọ Cạp', 'Nhân Mã', 'Ma Kết', 'Bảo Bình', 'Song Ngư'
+    ];
+    const month = gregorianDate.getUTCMonth() + 1;
+    const day = gregorianDate.getUTCDate();
+
+    const startDate = [3, 21]; // Ngày bắt đầu của Bạch Dương
+    const endDate = [4, 19];   // Ngày kết thúc của Bạch Dương
+
+    const zodiacIndex = (month === endDate[0] && day >= endDate[1]) || (month === startDate[0] && day >= startDate[1])
+      ? month
+      : (month - 1 + 12) % 12;
+
+    const zodiacSign = zodiacSigns[zodiacIndex];
+
+    return zodiacSign;
+  }
+
+  static formatDateChineseZodiac = (date: Date) => {
+
+    // const lunar = moment(date).lunar();
+    const gregorianDate = new Date(date);
+    const lunarDate = moment(gregorianDate).lunar();
+    // Xác định Can Chi của năm dựa trên năm Dương lịch
+    const year = lunarDate.year();
+    const canChiYear = this.calculateCanChi(year);
+
+    // Xác định con giáp dựa trên Can Chi của năm
+    const chineseZodiacs = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tị', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
+    const zodiacIndex = (year - 4) % 12; // Bắt đầu từ năm Tý (năm 4)
+    const chineseZodiac = chineseZodiacs[zodiacIndex];
+
+    return `${canChiYear}`;
+  }
+
+  static calculateCanChi = (year: number) => {
+    const canhs = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
+    const chis = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tị', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
+
+    const canIndex = (year - 4) % 10;
+    const chiIndex = (year - 4) % 12;
+
+    return `${canhs[canIndex]} ${chis[chiIndex]}`;
+  };
+
 
   static takeImages = async () => {
     try {

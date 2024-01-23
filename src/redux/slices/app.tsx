@@ -5,12 +5,14 @@ export interface appState {
   Remember: boolean;
   Username: string;
   Password: string;
+  Birthday?: Date;
 }
 
 const initialState: appState = {
   Remember: false,
   Username: "",
   Password: "",
+  Birthday: undefined,
 };
 
 const appSlice = createSlice({
@@ -26,10 +28,12 @@ const appSlice = createSlice({
     setLoginInformation: (state, action: PayloadAction<any>) => {
       state.Username = action.payload.username;
       state.Password = action.payload.password;
+      state.Birthday = action.payload.birthday;
     },
     removeLoginInformation: (state) => {
       state.Username = "";
       state.Password = "";
+      state.Birthday = undefined;
     }
   },
 });
