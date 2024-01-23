@@ -103,6 +103,31 @@ class Utility {
     return `${canhs[canIndex]} ${chis[chiIndex]}`;
   };
 
+  static sumDigitsFromDate(date: Date) {
+    // Lấy ngày, tháng, năm từ đối tượng Date
+    const dataDate = new Date(date);
+    const day = dataDate.getDate().toString();
+    const month = (dataDate.getMonth() + 1).toString(); // Tháng bắt đầu từ 0
+    const year = dataDate.getFullYear().toString();
+
+    // Kết hợp thành một chuỗi
+    const combinedString = day + month + year;
+
+    // Tính tổng chữ số
+    let sum = 0;
+    for (let i = 0; i < combinedString.length; i++) {
+      sum += parseInt(combinedString[i]);
+    }
+
+    // Áp dụng quy tắc không cộng nếu kết quả là 10 hoặc 11
+    while (sum >= 12) {
+      // Tính tổng chữ số mới
+      sum = sum.toString().split('').reduce((acc, digit) => acc + parseInt(digit), 0);
+    }
+
+    return sum;
+  }
+
 
   static takeImages = async () => {
     try {
