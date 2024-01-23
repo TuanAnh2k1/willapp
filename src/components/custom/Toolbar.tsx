@@ -19,7 +19,7 @@ const Toolbar = (props: ToolbarProps) => {
       <View style={styles.titleContainer}>
         <BaseButton
           containerStyle={styles.backContainer}
-          iconComponent={<IconBack />}
+          iconComponent={<IconBack primaryColor={colors.white} />}
           onPress={() => navigation.goBack()}
         />
         <Text style={styles.title}>{title}</Text>
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 10,
     paddingHorizontal: 10,
-    backgroundColor: colors.white,
+    backgroundColor: colors.primary,
     borderBottomWidth: 0.5,
     borderBottomColor: colors._D1D1D1,
   },
@@ -46,12 +46,13 @@ const styles = StyleSheet.create({
     height: 40,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: colors.primary
   },
   title: {
     flex: 1,
     fontSize: 20,
     fontFamily: "semiBold",
-    color: colors.black,
+    color: colors.white,
   },
 });
 

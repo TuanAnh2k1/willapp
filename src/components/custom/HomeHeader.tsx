@@ -1,12 +1,12 @@
-import { IconNotify, IconUsername } from "@assets";
+import { IconLogout, IconNotify, IconUsername } from "@assets";
 import { SMX, colors } from "@utils";
 import { View, Text, StyleSheet } from "react-native";
 import { BaseButton } from "../base/BaseButton";
-import { useAppSelector } from "@redux";
+import { removeLoginInformation, useAppDispatch, useAppSelector } from "@redux";
 
 const HomeHeader = () => {
-  const username = useAppSelector(state => state.user.Name);
-
+  const username = useAppSelector(state => state.app.Username);
+  const dispatch = useAppDispatch();
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
@@ -20,6 +20,11 @@ const HomeHeader = () => {
         containerStyle={styles.notifyContainer}
         iconComponent={<IconNotify size={18} />}
         onPress={() => { }}
+      />
+      <BaseButton
+        containerStyle={styles.notifyContainer}
+        iconComponent={<IconLogout />}
+        onPress={() => { dispatch(removeLoginInformation()); }}
       />
     </View>
   )

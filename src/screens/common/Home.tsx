@@ -1,10 +1,10 @@
-import { IconApproveList, IconTransport, IconUploadFile, shape } from "@assets";
+import { IconApproveList, IconQuery, IconQuestions, IconTransport, IconUploadFile, shape } from "@assets";
 import { Features, Utility, colors, theme } from "@utils";
 import { Text, View, StyleSheet, Dimensions, ImageBackground } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BaseButton } from "../../../src/components/base/BaseButton";
 import { HomeHeader } from "@components";
-import { TRANSPORT_STACK } from "../RouteName";
+import { BIRTHDAY_SCREEN, TRANSPORT_STACK } from "../RouteName";
 import { useNavigation } from "@react-navigation/native";
 import { ApiUrl, GlobalService, HttpUtils } from "@services";
 import { useEffect, useState } from "react";
@@ -14,51 +14,24 @@ import { AuthenticationDTO } from "@dto";
 const { width } = Dimensions.get("window");
 
 const Home = () => {
-  const [features, setFeatures] = useState<adm_Feature[]>([]);
   const navigation = useNavigation();
   const category = [
     {
-      label: "Vận chuyển",
-      icon: <IconTransport />,
-      route: TRANSPORT_STACK,
-      disalbe: !Utility.CheckPermissionFeature(features, Features.Transport),
+      label: "Ngày sinh?",
+      icon: <IconQuestions />,
+      route: BIRTHDAY_SCREEN,
     },
     {
-      label: "Phê duyệt",
+      label: "Lịch vạn niên",
       icon: <IconApproveList />,
       route: TRANSPORT_STACK,
-      disalbe: !Utility.CheckPermissionFeature(features, Features.Approve),
     },
     {
-      label: "Upload file",
-      icon: <IconUploadFile />,
+      label: "Bói bài",
+      icon: <IconQuery />,
       route: TRANSPORT_STACK,
-      disalbe: !Utility.CheckPermissionFeature(features, Features.UploadFile),
     },
   ];
-
-  useEffect(() => {
-    const load = async () => {
-      GlobalService.showLoading();
-      try {
-        let request = new AuthenticationDTO();
-
-        await HttpUtils.post<AuthenticationDTO>(
-          ApiUrl.GetUserMenuMobile,
-          "",
-          JSON.stringify(request),
-        ).then((response) => {
-          setFeatures(response.Features ?? []);
-        }).then(() => {
-          GlobalService.hideLoading();
-        });
-      } catch (error) {
-        GlobalService.hideLoading();
-      }
-    }
-
-    load();
-  }, [])
 
   return (
     <View style={styles.container}>
@@ -71,7 +44,6 @@ const Home = () => {
               {category.map((item, index) =>
                 <BaseButton
                   key={index}
-                  disable={item.disalbe}
                   containerStyle={[styles.categoryStyle, theme.shadow]}
                   labelStyle={styles.labelStyle}
                   label={item.label}
