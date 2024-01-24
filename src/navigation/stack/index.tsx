@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { BIRTHDAY_SCREEN, Birthday, HOME, Home, LOGIN, Login, TRANSPORT_STACK, } from '@screens';
+import { BIRTHDAY_SCREEN, Birthday, CALENDAR_SCREEN, CARTOMANCY_SCREEN, CalendarScreen, Cartomancy, HOME, Home, LOGIN, Login, TRANSPORT_STACK, } from '@screens';
 import { TransportStack } from './TransportStack';
 import { useAppSelector } from '@redux';
 
@@ -21,6 +21,8 @@ const StackApp = () => {
       }
       <Stack.Screen name={TRANSPORT_STACK} component={TransportStack} />
       <Stack.Screen name={BIRTHDAY_SCREEN} component={Birthday} />
+      <Stack.Screen name={CALENDAR_SCREEN} component={CalendarScreen} />
+      <Stack.Screen name={CARTOMANCY_SCREEN} component={Cartomancy} />
     </Stack.Navigator>
   )
 }

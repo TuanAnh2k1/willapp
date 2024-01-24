@@ -48,11 +48,11 @@
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO",
         "android.permission.SCHEDULE_EXACT_ALARM",
-        "CAMERA",
-        "CAMERA_ROLL",
-        "LOCATION",
-        "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION",
+        "android.permission.CAMERA",
+        "android.permission.CAMERA_ROLL",
+        "android.permission.LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_BACKGROUND_LOCATION"
@@ -82,7 +82,10 @@
     "extra": {
       "APP_VERSION": "1.0.2.6",
       "API_HOST_DEV": "https://lfvn-coll-mobile.softmart.net.vn",
-      "API_HOST_PRO": "https://lfvn-coll-mobile.softmart.net.vn"
+      "API_HOST_PRO": "https://lfvn-coll-mobile.softmart.net.vn",
+      "eas": {
+        "projectId": "35155db1-394f-4ff4-8f77-8efc096411a9"
+      }
     }
   }
 }
