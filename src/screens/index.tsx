@@ -3,6 +3,8 @@ import { Welcome } from "./common/Welcome";
 import { Login } from "./common/Login";
 import { Home } from "./common/Home";
 import { Birthday } from "./common/Birthday";
+import { CalendarScreen } from "./common/Calendar";
+import { Cartomancy } from "./common/Cartomancy";
 
 // transport
 import { TransportDefault } from "./transport/Default";
@@ -14,7 +16,9 @@ export {
   Home,
   TransportDefault,
   TransportDisplay,
-  Birthday
+  Birthday,
+  CalendarScreen,
+  Cartomancy
 }
 
 export * from './RouteName';

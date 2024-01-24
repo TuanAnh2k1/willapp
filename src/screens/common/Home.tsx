@@ -4,7 +4,7 @@ import { Text, View, StyleSheet, Dimensions, ImageBackground } from "react-nativ
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BaseButton } from "../../../src/components/base/BaseButton";
 import { HomeHeader } from "@components";
-import { BIRTHDAY_SCREEN, TRANSPORT_STACK } from "../RouteName";
+import { BIRTHDAY_SCREEN, CALENDAR_SCREEN, CARTOMANCY_SCREEN, TRANSPORT_STACK } from "../RouteName";
 import { useNavigation } from "@react-navigation/native";
 import { ApiUrl, GlobalService, HttpUtils } from "@services";
 import { useEffect, useState } from "react";
@@ -24,12 +24,12 @@ const Home = () => {
     {
       label: "Lịch vạn niên",
       icon: <IconApproveList />,
-      route: TRANSPORT_STACK,
+      route: CALENDAR_SCREEN,
     },
     {
       label: "Bói bài",
       icon: <IconQuery />,
-      route: TRANSPORT_STACK,
+      route: CARTOMANCY_SCREEN,
     },
   ];
 
