@@ -36,6 +36,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderBottomWidth: 0.5,
     borderBottomColor: colors._D1D1D1,
+    height: 80,
+    justifyContent: 'center'
   },
   titleContainer: {
     flexDirection: "row",
