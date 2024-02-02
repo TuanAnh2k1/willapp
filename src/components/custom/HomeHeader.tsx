@@ -2,7 +2,7 @@ import { IconLogout, IconNotify, IconUsername } from "@assets";
 import { SMX, colors } from "@utils";
 import { View, Text, StyleSheet } from "react-native";
 import { BaseButton } from "../base/BaseButton";
-import { removeLoginInformation, useAppDispatch, useAppSelector } from "@redux";
+import { removeLoginInformation, removeTimeNotice, useAppDispatch, useAppSelector } from "@redux";
 
 const HomeHeader = () => {
   const username = useAppSelector(state => state.app.Username);
@@ -24,7 +24,10 @@ const HomeHeader = () => {
       <BaseButton
         containerStyle={styles.notifyContainer}
         iconComponent={<IconLogout />}
-        onPress={() => { dispatch(removeLoginInformation()); }}
+        onPress={() => {
+          dispatch(removeLoginInformation());
+          dispatch(removeTimeNotice())
+        }}
       />
     </View>
   )

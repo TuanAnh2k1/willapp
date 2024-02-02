@@ -1,20 +1,23 @@
-import { IconApproveList, IconQuery, IconQuestions, IconTransport, IconUploadFile, shape } from "@assets";
-import { Features, Utility, colors, theme } from "@utils";
+import { IconApproveList, IconQuery, IconQuestions, shape } from "@assets";
+import { colors, theme } from "@utils";
 import { Text, View, StyleSheet, Dimensions, ImageBackground } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BaseButton } from "../../../src/components/base/BaseButton";
 import { HomeHeader } from "@components";
-import { BIRTHDAY_SCREEN, CALENDAR_SCREEN, CARTOMANCY_SCREEN, TRANSPORT_STACK } from "../RouteName";
+import { BIRTHDAY_SCREEN, CALENDAR_SCREEN, CARTOMANCY_SCREEN } from "../RouteName";
 import { useNavigation } from "@react-navigation/native";
-import { ApiUrl, GlobalService, HttpUtils } from "@services";
-import { useEffect, useState } from "react";
-import { adm_Feature } from "@entities";
-import { AuthenticationDTO } from "@dto";
+import { useEffect } from "react";
+import * as Notifications from 'expo-notifications';
+import { setTimeNotice, useAppDispatch, useAppSelector } from "@redux";
 
 const { width } = Dimensions.get("window");
 
 const Home = () => {
+
+  const username = useAppSelector(state => state.app.Username);
+  const timeNotice = useAppSelector(state => state.app.TimeNotice);
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
   const category = [
     {
       label: "Ngày sinh?",
@@ -32,6 +35,51 @@ const Home = () => {
       route: CARTOMANCY_SCREEN,
     },
   ];
+
+  useEffect(() => {
+    // Yêu cầu quyền cho thông báo khi component được tạo
+    (async () => {
+      const { status } = await Notifications.requestPermissionsAsync();
+      if (status !== 'granted') {
+        alert('Quyền thông báo bị từ chối!');
+      }
+    })();
+    checkNotice();
+  }, []);
+
+  const checkNotice = async () => {
+    if (!timeNotice) {
+      dispatch(setTimeNotice(new Date()));
+      await scheduleNotification();
+    } else {
+      const newDate = new Date();
+      const oldDate = new Date(timeNotice);
+      const timeoutNotice = newDate.getTime() - oldDate.getTime();
+      if (timeoutNotice > 1800000) {
+        await scheduleNotification();
+      }
+    }
+  }
+
+  const scheduleNotification = async () => {
+    await Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: false,
+        shouldSetBadge: false,
+      }),
+    });
+
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Đoán vận mệnh hôm nay',
+        body: `${username.toUpperCase()} ơi! Hãy xem ngay vận mệnh hôm nay của bạn thế nào`,
+      },
+      trigger: {
+        seconds: 1, // Thời gian trì hoãn trước khi hiển thị thông báo (đơn vị là giây)
+      },
+    });
+  };
 
   return (
     <View style={styles.container}>

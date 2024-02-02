@@ -81,10 +81,6 @@ const BaseDropdown = memo((props: SMDropdownProps) => {
         const caculatedHeight = dataDropdown.length > 0 ? dataDropdown.length > 5 ? itemHeight * 5 : itemHeight * dataDropdown.length : itemHeight;
         const caculatedX = px;
         const caculatedY = windowHeight - (py + height) > caculatedHeight ? py + height : py - caculatedHeight;
-
-        console.log(itemHeight)
-        console.log(caculatedWidth, caculatedHeight, caculatedX, caculatedY)
-
         setBoxLayout({
           marginTop: caculatedY - (StatusBar.currentHeight ?? 0),
           marginLeft: caculatedX,

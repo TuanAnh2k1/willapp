@@ -6,6 +6,7 @@ export interface appState {
   Username: string;
   Password: string;
   Birthday?: Date;
+  TimeNotice?: Date;
 }
 
 const initialState: appState = {
@@ -13,6 +14,7 @@ const initialState: appState = {
   Username: "",
   Password: "",
   Birthday: undefined,
+  TimeNotice: undefined,
 };
 
 const appSlice = createSlice({
@@ -30,10 +32,17 @@ const appSlice = createSlice({
       state.Password = action.payload.password;
       state.Birthday = action.payload.birthday;
     },
+    setTimeNotice: (state, action: PayloadAction<any>) => {
+      state.TimeNotice = action.payload;
+    },
     removeLoginInformation: (state) => {
       state.Username = "";
       state.Password = "";
       state.Birthday = undefined;
+    },
+    removeTimeNotice: (state) => {
+      state.Birthday = undefined;
+      state.TimeNotice = undefined;
     }
   },
 });
@@ -43,6 +52,8 @@ export const {
   setRemember,
   setLoginInformation,
   removeLoginInformation,
+  setTimeNotice,
+  removeTimeNotice
 } = appSlice.actions;
 
 export const selectApp = (state: RootState) => state.app;
