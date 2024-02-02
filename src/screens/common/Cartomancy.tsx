@@ -2,7 +2,7 @@ import { welcome } from "@assets";
 import { BaseButton, Toolbar } from "@components";
 import { colors, theme } from "@utils";
 import { useState } from "react";
-import { Button, ImageBackground, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Button, Image, ImageBackground, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 
 const Cartomancy = () => {
 
@@ -167,7 +167,7 @@ const Cartomancy = () => {
             case 78:
                 return " ";
             default:
-                return "- Không rõ ý nghĩa";
+                return "";
         }
     }
 
@@ -330,7 +330,7 @@ const Cartomancy = () => {
             case 78:
                 return " ";
             default:
-                return "- Không rõ ý nghĩa";
+                return "";
         }
     }
 
@@ -345,20 +345,29 @@ const Cartomancy = () => {
                 title={"Bói bài hàng ngày"}
             />
             <ScrollView style={styles.content}>
-                {!card ?
-                    <View style={styles.viewBut}>
-                        <Button title="Xin thành tâm" color={colors.white} onPress={PleaseCard} />
-                    </View>
-                    :
-                    <View style={styles.viewButReload}>
-                        <Button title="Thành tâm xin lại" color={colors.white} onPress={PleaseCard} />
-                    </View>
+                {!card &&
+                    <Text style={styles.textMeaning}>Thành tâm xin lá bài về sức khỏe, công việc, tình yêu,... trong 24 giờ tới: </Text>
                 }
-
-                <Text style={[styles.textMeaning, { color: colors.primary }]}>Lá bài hôm nay của bạn: {getZodiacMeaningLabel()}</Text>
-                <Text style={styles.textMeaning}>Ý nghĩa lá bài về sức khỏe, công việc, tình yêu,... trong 24 giờ tới: </Text>
-                <Text style={styles.textMeaningData}>{getZodiacMeaning()}</Text>
+                <View style={styles.viewNonCardImage} >
+                    <Image source={require('../../assets/gif/tarot02.gif')} />
+                </View>
+                {card &&
+                    <>
+                        <Text style={[styles.textMeaning, { color: colors.primary }]}>Lá bài hôm nay của bạn: {getZodiacMeaningLabel()}</Text>
+                        <Text style={styles.textMeaning}>Ý nghĩa lá bài về sức khỏe, công việc, tình yêu,... trong 24 giờ tới: </Text>
+                        <Text style={styles.textMeaningData}>{getZodiacMeaning()}</Text>
+                    </>
+                }
             </ScrollView>
+            {card ?
+                <View style={styles.viewButReload}>
+                    <Button title="Thành tâm xin lại" color={colors.white} onPress={PleaseCard} />
+                </View>
+                :
+                <View style={styles.viewBut}>
+                    <Button title="Xin thành tâm" color={colors.white} onPress={PleaseCard} />
+                </View>
+            }
         </SafeAreaView>
     )
 }
@@ -382,11 +391,19 @@ const styles = StyleSheet.create({
     },
     viewBut: {
         backgroundColor: colors.primary,
-        marginVertical: 8
+        marginVertical: 10,
+        marginHorizontal: 20,
+        borderRadius: 6
     },
     viewButReload: {
         backgroundColor: colors._EAA300,
-        marginVertical: 8
+        marginVertical: 10,
+        marginHorizontal: 20,
+        borderRadius: 6
+    },
+    viewNonCardImage: {
+        alignItems: 'center',
+        paddingVertical: 10
     }
 });
 

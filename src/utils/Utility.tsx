@@ -55,25 +55,38 @@ class Utility {
   }
 
   static formatDateZodiac = (date: Date) => {
-    const gregorianDate = new Date(date);
-
-    const zodiacSigns = [
-      'Bạch Dương', 'Kim Ngưu', 'Song Tử', 'Cự Giải', 'Sư Tử', 'Xử Nữ',
-      'Thiên Bình', 'Bọ Cạp', 'Nhân Mã', 'Ma Kết', 'Bảo Bình', 'Song Ngư'
+    // Tạo một đối tượng Date từ chuỗi date
+    let birthDate = new Date(date);
+    // Lấy ngày và tháng từ đối tượng Date
+    let day = birthDate.getDate();
+    let month = birthDate.getMonth() + 1; // Tháng bắt đầu từ 0
+    // Khai báo một mảng chứa tên các cung hoàng đạo tiếng Việt
+    let zodiacSigns = [
+      "Ma Kết",
+      "Bảo Bình",
+      "Song Ngư",
+      "Bạch Dương",
+      "Kim Ngưu",
+      "Song Tử",
+      "Cự Giải",
+      "Sư Tử",
+      "Xử Nữ",
+      "Thiên Bình",
+      "Bọ Cạp",
+      "Nhân Mã",
     ];
-    const month = gregorianDate.getUTCMonth() + 1;
-    const day = gregorianDate.getUTCDate();
-
-    const startDate = [3, 21]; // Ngày bắt đầu của Bạch Dương
-    const endDate = [4, 19];   // Ngày kết thúc của Bạch Dương
-
-    const zodiacIndex = (month === endDate[0] && day >= endDate[1]) || (month === startDate[0] && day >= startDate[1])
-      ? month
-      : (month - 1 + 12) % 12;
-
-    const zodiacSign = zodiacSigns[zodiacIndex];
-
-    return zodiacSign;
+    // Khai báo một mảng chứa ngày bắt đầu của mỗi cung hoàng đạo
+    let zodiacStartDates = [20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 23, 22];
+    // Xác định chỉ số của cung hoàng đạo trong mảng zodiacSigns
+    let index = month;
+    if (day < zodiacStartDates[index]) {
+      index = index - 1;
+      if (index < 0) {
+        index = 11;
+      }
+    }
+    // Trả về tên cung hoàng đạo tương ứng
+    return zodiacSigns[index];
   }
 
   static formatDateChineseZodiac = (date: Date) => {
