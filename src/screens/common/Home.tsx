@@ -49,7 +49,6 @@ const Home = () => {
 
   const checkNotice = async () => {
     if (!timeNotice) {
-      dispatch(setTimeNotice(new Date()));
       await scheduleNotification();
     } else {
       const newDate = new Date();
@@ -62,6 +61,7 @@ const Home = () => {
   }
 
   const scheduleNotification = async () => {
+    dispatch(setTimeNotice(new Date()));
     await Notifications.setNotificationHandler({
       handleNotification: async () => ({
         shouldShowAlert: true,

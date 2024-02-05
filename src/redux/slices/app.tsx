@@ -41,7 +41,6 @@ const appSlice = createSlice({
       state.Birthday = undefined;
     },
     removeTimeNotice: (state) => {
-      state.Birthday = undefined;
       state.TimeNotice = undefined;
     }
   },

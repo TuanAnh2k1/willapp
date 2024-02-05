@@ -16,11 +16,11 @@ const HomeHeader = () => {
         <Text style={styles.greeting}>Xin chào,</Text>
         <Text style={styles.username}>{username.toUpperCase()}</Text>
       </View>
-      <BaseButton
+      {/* <BaseButton
         containerStyle={styles.notifyContainer}
         iconComponent={<IconNotify size={18} />}
         onPress={() => { }}
-      />
+      /> */}
       <BaseButton
         containerStyle={styles.notifyContainer}
         iconComponent={<IconLogout />}

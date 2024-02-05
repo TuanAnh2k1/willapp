@@ -3662,6 +3662,13 @@ expo-linking@~5.0.2:
     qs "^6.11.0"
     url-parse "^1.5.9"
 
+expo-local-authentication@^13.8.0:
+  version "13.8.0"
+  resolved "https://registry.npmjs.org/expo-local-authentication/-/expo-local-authentication-13.8.0.tgz#21d9870bbaff0804325bd70f171273560a4293bb"
+  integrity sha512-h0YA7grVdo3834AS70EUCsalaXrrEnoq+yTvIhRTxiPmzWxUv7rNo5ff+XsIEYNElKPmT/wh/xPV1yo3l3fhGg==
+  dependencies:
+    invariant "^2.2.4"
+
 expo-location@~16.1.0:
   version "16.1.0"
   resolved "https://registry.npmjs.org/expo-location/-/expo-location-16.1.0.tgz#251a465790d6622f828fd18f0edb2a73b9664b72"

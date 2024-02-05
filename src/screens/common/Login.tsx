@@ -11,6 +11,8 @@ import { ApiUrl, GlobalService, HttpUtils } from "@services";
 import { ExceptionType, SMXException } from "@entities";
 import { removeLoginInformation, setAlert, setLoginInformation, setRemember, setUserInformation, useAppDispatch, useAppSelector } from "@redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import * as LocalAuthentication from 'expo-local-authentication';
+import { Button } from "react-native";
 
 const { width } = Dimensions.get("window");
 
@@ -24,10 +26,42 @@ const Login = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
+  const [authenticationResult, setAuthenticationResult] = useState('');
+
   const onAccountChange = (state: string, value: any) => {
     setAccount((previousState) => {
       return { ...previousState, [state]: value };
     });
+  };
+
+  const checkBiometric = async () => {
+    const hasBiometric = await LocalAuthentication.hasHardwareAsync();
+    if (!hasBiometric) {
+      setAuthenticationResult('Thiết bị không hỗ trợ xác thực vân tay.');
+      return;
+    }
+
+    const biometricType = await LocalAuthentication.supportedAuthenticationTypesAsync();
+    if (biometricType.includes(1)) {
+      // 1: FingerPrint
+      authenticateBiometric();
+    } else {
+      setAuthenticationResult('Thiết bị không hỗ trợ xác thực vân tay.');
+    }
+  };
+
+  const authenticateBiometric = async () => {
+    const result = await LocalAuthentication.authenticateAsync({
+      promptMessage: 'Sử dụng vân tay để đăng nhập',
+    });
+
+    if (result.success) {
+      console.log(result);
+
+      setAuthenticationResult('Xác thực thành công!');
+    } else {
+      setAuthenticationResult('Xác thực không thành công.');
+    }
   };
 
   const login = async () => {
@@ -112,6 +146,7 @@ const Login = () => {
               label={"Đăng nhập"}
               onPress={() => login()}
             />
+            <Button title="Kiểm tra vân tay" onPress={checkBiometric} />
           </View>
         </View>
       </KeyboardAwareScrollView>
