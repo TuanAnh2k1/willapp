@@ -1,17 +1,183 @@
-import { welcome } from "@assets";
+import { the_pool, welcome } from "@assets";
 import { BaseButton, Toolbar } from "@components";
 import { colors, theme } from "@utils";
 import { useState } from "react";
-import { Button, Image, ImageBackground, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import ImageViewer from "react-native-image-zoom-viewer";
+import { Button, Dimensions, Image, ImageBackground, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 
+const { width, height } = Dimensions.get("window");
 const Cartomancy = () => {
 
     const [card, setCard] = useState<number>();
+    const [isLoad, setIsLoad] = useState<boolean>(false);
 
     const getZodiacMeaningLabel = () => {
         switch (card) {
             case 1:
                 return "The Fool";
+            case 2:
+                return "The Magician";
+            case 3:
+                return "The High Priestess";
+            case 4:
+                return "The Empress";
+            case 5:
+                return "The Emperor";
+            case 6:
+                return "The Hierophant";
+            case 7:
+                return "The Lovers";
+            case 8:
+                return "The Chariot";
+            case 9:
+                return "The Strength";
+            case 10:
+                return "The Hermit";
+            case 11:
+                return "The Wheel of Fortune";
+            case 12:
+                return "The Justice";
+            case 13:
+                return "The Hanged Man";
+            case 14:
+                return "The Death";
+            case 15:
+                return "The Temperance";
+            case 16:
+                return "The Devil";
+            case 17:
+                return "The Tower";
+            case 18:
+                return "The Star";
+            case 19:
+                return "The Moon";
+            case 20:
+                return "The Sun";
+            case 21:
+                return "The Judgement";
+            case 22:
+                return "The World";
+            case 23:
+                return "Ace of cups";
+            case 24:
+                return "Two of Cup";
+            case 25:
+                return "Four of Cups";
+            case 26:
+                return "Five of Cups";
+            case 27:
+                return "Six of Cups";
+            case 28:
+                return "Seven of Cups";
+            case 29:
+                return "Eight of Cups";
+            case 30:
+                return "Nine of Cups";
+            case 31:
+                return "Ten of Cups";
+            case 32:
+                return "Page of Cups";
+            case 33:
+                return "Knight of Cups";
+            case 34:
+                return "Queen of Cups";
+            case 35:
+                return "King of Cups";
+            case 36:
+                return "Ace of Pentacles";
+            case 37:
+                return "Two of Pentacles";
+            case 38:
+                return "Three of Pentacles";
+            case 39:
+                return "Four of Pentacles";
+            case 40:
+                return "Five of Pentacles";
+            case 41:
+                return "Six of Pentacles";
+            case 42:
+                return "Seven of Pentacles";
+            case 43:
+                return "Eight of Pentacles";
+            case 44:
+                return "Nine of Pentacles";
+            case 45:
+                return "Ten of Pentacles";
+            case 46:
+                return "Page of Pentacles";
+            case 47:
+                return "Knight of Pentacles ";
+            case 48:
+                return "Queen of Pentacles ";
+            case 49:
+                return "King of Pentacles ";
+            case 50:
+                return "Ace of Swords ";
+            case 51:
+                return "Two of Swords ";
+            case 52:
+                return "Three of Swords ";
+            case 53:
+                return "Four of Swords ";
+            case 54:
+                return "Five of Swords ";
+            case 55:
+                return "Six of Swords ";
+            case 56:
+                return "Seven of Swords ";
+            case 57:
+                return "Eight of Swords ";
+            case 58:
+                return "Nine of Swords ";
+            case 59:
+                return "Ten of Swords ";
+            case 60:
+                return "Page of Swords ";
+            case 61:
+                return "Knight of Swords ";
+            case 62:
+                return "Queen of Swords ";
+            case 63:
+                return "King of Swords ";
+            case 64:
+                return "Ace of Wands ";
+            case 65:
+                return "Two of Wands ";
+            case 66:
+                return "Three of Wands ";
+            case 67:
+                return "Four of Wands ";
+            case 68:
+                return "Five of Wands ";
+            case 69:
+                return "Six of Wands ";
+            case 70:
+                return "Seven of Wands ";
+            case 71:
+                return "Eight of Wands ";
+            case 72:
+                return "Nine of Wands ";
+            case 73:
+                return "Ten of Wands ";
+            case 74:
+                return "Page of Wands ";
+            case 75:
+                return "Knight of Wands ";
+            case 76:
+                return "Queen of Wands ";
+            case 77:
+                return "King of Wands ";
+            case 78:
+                return " ";
+            default:
+                return "";
+        }
+    }
+
+    const diplayImageCard = () => {
+        switch (card) {
+            case 1:
+                return the_pool;
             case 2:
                 return "The Magician";
             case 3:
@@ -336,7 +502,12 @@ const Cartomancy = () => {
 
     const PleaseCard = () => {
         const randomCard = Math.floor(Math.random() * (77 - 1 + 1)) + 1;
-        setCard(randomCard);
+
+        setIsLoad(true);
+        setTimeout(() => {
+            setIsLoad(false);
+            setCard(randomCard);
+        }, 5000);
     }
 
     return (
@@ -348,11 +519,27 @@ const Cartomancy = () => {
                 {!card &&
                     <Text style={styles.textMeaning}>Thành tâm xin lá bài về sức khỏe, công việc, tình yêu,... trong 24 giờ tới: </Text>
                 }
-                <View style={styles.viewNonCardImage} >
-                    <Image source={require('../../assets/gif/tarot02.gif')} />
-                </View>
+                {isLoad &&
+                    <View style={styles.viewNonCardImage} >
+                        <Image source={require('../../assets/gif/tarot02.gif')} />
+                    </View>
+                }
+
                 {card &&
                     <>
+                        <View style={styles.viewNonCardImage} >
+                            <ImageViewer
+                                style={{ height: 200, width: '100%' }}
+                                imageUrls={[
+                                    {
+                                        url: `data:image/png;base64,${diplayImageCard()}`,
+                                    },
+                                ]}
+                                backgroundColor={colors.white}
+                                //@ts-ignore
+                                renderIndicator={() => null}
+                            />
+                        </View>
                         <Text style={[styles.textMeaning, { color: colors.primary }]}>Lá bài hôm nay của bạn: {getZodiacMeaningLabel()}</Text>
                         <Text style={styles.textMeaning}>Ý nghĩa lá bài về sức khỏe, công việc, tình yêu,... trong 24 giờ tới: </Text>
                         <Text style={styles.textMeaningData}>{getZodiacMeaning()}</Text>
@@ -360,13 +547,13 @@ const Cartomancy = () => {
                 }
             </ScrollView>
             {card ?
-                <View style={styles.viewButReload}>
-                    <Button title="Thành tâm xin lại" color={colors.white} onPress={PleaseCard} />
-                </View>
+                <Pressable onPress={PleaseCard}>
+                    <Text style={styles.viewButReload}>Thành tâm xin lại</Text>
+                </Pressable>
                 :
-                <View style={styles.viewBut}>
-                    <Button title="Xin thành tâm" color={colors.white} onPress={PleaseCard} />
-                </View>
+                <Pressable onPress={PleaseCard}>
+                    <Text style={styles.viewBut}>Xin thành tâm</Text>
+                </Pressable>
             }
         </SafeAreaView>
     )
@@ -391,15 +578,23 @@ const styles = StyleSheet.create({
     },
     viewBut: {
         backgroundColor: colors.primary,
-        marginVertical: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         marginHorizontal: 20,
-        borderRadius: 6
+        marginVertical: 10,
+        borderRadius: 6,
+        textAlign: 'center',
+        color: colors.white
     },
     viewButReload: {
         backgroundColor: colors._EAA300,
-        marginVertical: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         marginHorizontal: 20,
-        borderRadius: 6
+        marginVertical: 10,
+        borderRadius: 6,
+        textAlign: 'center',
+        color: colors.white
     },
     viewNonCardImage: {
         alignItems: 'center',
