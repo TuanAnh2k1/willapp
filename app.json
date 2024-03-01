@@ -79,7 +79,10 @@
     "extra": {
       "APP_VERSION": "1.0.2.6",
       "API_HOST_DEV": "https://lfvn-coll-mobile.softmart.net.vn",
-      "API_HOST_PRO": "https://lfvn-coll-mobile.softmart.net.vn"
+      "API_HOST_PRO": "https://lfvn-coll-mobile.softmart.net.vn",
+      "eas": {
+        "projectId": "fa0846cd-ac11-4144-8fcc-53a71eb99886"
+      }
     }
   }
 }
