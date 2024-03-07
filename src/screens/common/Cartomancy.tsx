@@ -613,7 +613,7 @@ const Cartomancy = () => {
         )}
         {isLoad && (
           <View style={styles.viewNonCardImage}>
-            <Image source={require("../../assets/gif/tarot02.gif")} />
+            <Image source={require("../../../assets/tarot02.gif")} />
           </View>
         )}
 
