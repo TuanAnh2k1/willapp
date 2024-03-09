@@ -28,7 +28,7 @@
         "usesNonExemptEncryption": false,
         "googleMapsApiKey": "AIzaSyBLceFu9fgncT-AOiopiNDD0IKnFPguCms"
       },
-      "bundleIdentifier": "softmart.LOTTE_FINANCE.uat",
+      "bundleIdentifier": "tuananb.VISIONS.live",
       "supportsTablet": true,
       "buildNumber": "3",
       "infoPlist": {
@@ -41,7 +41,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon_app.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [
