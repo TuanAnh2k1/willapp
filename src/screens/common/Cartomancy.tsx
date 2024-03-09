@@ -97,6 +97,7 @@ import {
 
 const { width, height } = Dimensions.get("window");
 const Cartomancy = () => {
+  const initCard = Math.floor(Math.random() * (77 - 1 + 1)) + 1;
   const [card, setCard] = useState<number>();
   const [isFirst, setIsFirst] = useState<boolean>(true);
   const [isLoad, setIsLoad] = useState<boolean>(false);
@@ -264,8 +265,8 @@ const Cartomancy = () => {
     }
   };
 
-  const diplayImageCard = () => {
-    switch (card) {
+  const diplayImageCard = (item: number) => {
+    switch (item) {
       case 1:
         return the_pool;
       case 2:
@@ -603,17 +604,32 @@ const Cartomancy = () => {
 
   return (
     <SafeAreaView style={theme.container}>
-      <Toolbar title={"Bói bài hàng ngày"} />
+      <Toolbar title={"Tarot hôm nay"} />
       <ScrollView style={styles.content}>
-        {!card && (
-          <Text style={styles.textMeaning}>
-            Thành tâm xin lá bài về sức khỏe, công việc, tình yêu,... trong 24
-            giờ tới:{" "}
-          </Text>
+        {!card && !isLoad && (
+          <>
+            <Text style={styles.textMeaning}>
+              Thành tâm xin lá bài về sức khỏe, công việc, tình yêu,... trong 24
+              giờ tới:{" "}
+            </Text>
+            <View style={styles.viewNonCardImage}>
+              <ImageViewer
+                style={{ height: 200, width: "100%" }}
+                imageUrls={[
+                  {
+                    url: `data:image/png;base64,${diplayImageCard(initCard)}`,
+                  },
+                ]}
+                backgroundColor={colors.white}
+                //@ts-ignore
+                renderIndicator={() => null}
+              />
+            </View>
+          </>
         )}
         {isLoad && (
           <View style={styles.viewNonCardImage}>
-            <Image source={require("../../../assets/tarot02.gif")} />
+            <Image source={require("../../assets/gif/tarot_random.gif")} />
           </View>
         )}
 
@@ -624,7 +640,7 @@ const Cartomancy = () => {
                 style={{ height: 200, width: "100%" }}
                 imageUrls={[
                   {
-                    url: `data:image/png;base64,${diplayImageCard()}`,
+                    url: `data:image/png;base64,${diplayImageCard(card)}`,
                   },
                 ]}
                 backgroundColor={colors.white}
